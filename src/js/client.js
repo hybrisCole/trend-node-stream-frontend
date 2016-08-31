@@ -1,76 +1,44 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme, VictoryStack } from 'victory';
-
-const data2012 = [
-  {quarter: 1, earnings: 13000},
-  {quarter: 2, earnings: 16500},
-  {quarter: 3, earnings: 14250},
-  {quarter: 4, earnings: 19000}
-];
-
-const data2013 = [
-  {quarter: 1, earnings: 15000},
-  {quarter: 2, earnings: 12500},
-  {quarter: 3, earnings: 19500},
-  {quarter: 4, earnings: 13000}
-];
-
-const data2014 = [
-  {quarter: 1, earnings: 11500},
-  {quarter: 2, earnings: 13250},
-  {quarter: 3, earnings: 20000},
-  {quarter: 4, earnings: 15500}
-];
-
-const data2015 = [
-  {quarter: 1, earnings: 18000},
-  {quarter: 2, earnings: 13250},
-  {quarter: 3, earnings: 15000},
-  {quarter: 4, earnings: 12000}
-];
-
+import { VictoryPie } from 'victory';
+import TrendChart from '../component/TrendChart';
+import TrendSteam from '../state/TrendStream';
+const trendStream = new TrendSteam();
 class Main extends React.Component {
-  render() {
+  render () {
     return (
       <div>
-        <h1>Victory Tutorial</h1>
-        <VictoryChart
-          domainPadding={10}
-          theme={VictoryTheme.material}
-        >
-          <VictoryAxis
-            tickValues={["Quarter 1", "Quarter 2", "Quarter 3", "Quarter 4"]}
-          />
-          <VictoryAxis
-            dependentAxis
-            tickFormat={(x) => (`$${x / 1000}k`)}
-          />
-          <VictoryStack
-            colorScale={"warm"}
-          >
-            <VictoryBar
-              data={data2012}
-              x={"quarter"}
-              y={"earnings"}
-            />
-            <VictoryBar
-              data={data2013}
-              x={"quarter"}
-              y={"earnings"}
-            />
-            <VictoryBar
-              data={data2014}
-              x={"quarter"}
-              y={"earnings"}
-            />
-            <VictoryBar
-              data={data2015}
-              x={"quarter"}
-              y={"earnings"}
-            />
-          </VictoryStack>
-        </VictoryChart>
+        <h1>Trending Stream</h1>
+        <TrendChart appState={trendStream} />
+        <VictoryPie
+  style={{
+    labels : {
+      fill       : 'white',
+      fontSize   : 12,
+      fontWeight : 'bold',
+      padding    : 0,
+    },
+  }}
+  data={[
+    {x : '<5', y : 6279},
+    {x : '5-13', y : 9182},
+    {x : '14-17', y : 5511},
+    {x : '18-24', y : 7164},
+    {x : '25-44', y : 6716},
+    {x : '45-64', y : 4263},
+    {x : '≥65', y : 7502},
+  ]}
+  innerRadius={110}
+  colorScale={[
+    '#D85F49',
+    '#F66D3B',
+    '#D92E1D',
+    '#D73C4C',
+    '#FFAF59',
+    '#E28300',
+    '#F6A57F',
+  ]}
+/>
       </div>
     );
   }
