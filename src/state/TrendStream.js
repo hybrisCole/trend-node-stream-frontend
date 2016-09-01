@@ -1,15 +1,27 @@
-import { observable } from 'mobx';
+import { observable, computed } from 'mobx';
+import pubnubClient from '../util/pubnubClient';
+import _ from 'lodash';
 
-export default class TrendStreakm {
-  @observable counter = 0;
-
-  constructor () {
-    setInterval(() => {
-      this.counter += 1;
-    }, 1000);
+class TrendStream {
+  @observable trendCounter = [['#trend1', 25], ['#trend2', 20], ['#trend3', 5], ['#trend4', 50], ['#trend5', 10]];
+  @computed get cartesianData () {
+    return _.map(this.trendCounter, (trendArray) => {
+      return {
+        x : `${trendArray[0]} ${trendArray[1]}`,
+        y : trendArray[1],
+      };
+    });
   }
-
-  resetTimer () {
-    this.counter = 0;
+  constructor () {
+    pubnubClient.subscribe({
+      channels : ['trendnode:count'],
+    });
+    pubnubClient.addListener({
+      message : (trendData) => {
+        this.trendCounter = trendData.message;
+      },
+    });
   }
 }
+
+export default TrendStream;

@@ -8,6 +8,9 @@
     "start": "webpack-dev-server --content-base dist",
     "lint": "./node_modules/eslint/bin/eslint.js src/**"
   },
+  "engines": {
+    "node": "6.5.0"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/FormidableLabs/victory-tutorial.git"
@@ -30,15 +33,16 @@
     "eslint": "3.4.0",
     "eslint-plugin-react": "6.2.0",
     "mobx-react-devtools": "4.2.5",
-    "react": "15.3.1",
-    "react-dom": "15.3.1",
     "webpack": "1.13.2",
     "webpack-dev-server": "1.15.0"
   },
   "dependencies": {
+    "lodash": "4.15.0",
     "mobx": "2.5.0",
     "mobx-react": "3.5.5",
     "pubnub": "4.0.8",
+    "react": "15.3.1",
+    "react-dom": "15.3.1",
     "victory": "0.11.0"
   }
 }
